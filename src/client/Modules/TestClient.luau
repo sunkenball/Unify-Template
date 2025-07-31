@@ -11,6 +11,10 @@ local Unify = require(Packages.Unify)
 -- Module
 local TestClient = {}
 
+function TestClient.onTestEvent(message: string)
+	print(message)
+end
+
 do
 	TestServer = Unify:Get("TestServer")
 end
@@ -20,9 +24,7 @@ do
 		print(response)
 	end)
 
-	TestServer.TestEvent:Connect(function(message: string)
-		print(message)
-	end)
+	TestServer.TestEvent:Connect(TestClient.onTestEvent)
 end
 
 return TestClient
